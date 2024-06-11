@@ -1,15 +1,15 @@
-﻿namespace NoteHighLightForm.Properties {
+﻿namespace NoteHighlightAddin.Properties {
     
     
-    // 這個類別可以讓您處理設定類別上的特定事件:
-    //  在設定值變更之前引發 SettingChanging 事件。
-    //  在設定值變更之後引發 PropertyChanged 事件。
-    //  在載入設定值之後引發 SettingsLoaded 事件。
-    //  在儲存設定值之前引發 SettingsSaving 事件。
+    // This class allows you to handle specific events on the settings class:
+    //  The SettingChanging event is raised before a setting's value is changed.
+    //  The PropertyChanged event is raised after a setting's value is changed.
+    //  The SettingsLoaded event is raised after the setting values are loaded.
+    //  The SettingsSaving event is raised before the setting values are saved.
     internal sealed partial class Settings {
         
         public Settings() {
-            // // 若要加入用於儲存與變更設定的事件處理常式，請取消註解下列程式行:
+            // // To add event handlers for saving and changing settings, uncomment the lines below:
             //
             // this.SettingChanging += this.SettingChangingEventHandler;
             //
@@ -18,11 +18,11 @@
         }
         
         private void SettingChangingEventHandler(object sender, System.Configuration.SettingChangingEventArgs e) {
-            // 在此加入程式碼以處理 SettingChangingEvent 事件。
+            // Add code to handle the SettingChangingEvent event here.
         }
         
         private void SettingsSavingEventHandler(object sender, System.ComponentModel.CancelEventArgs e) {
-            // 在此加入程式碼以處理 SettingsSaving 事件。
+            // Add code to handle the SettingsSaving event here.
         }
     }
 }

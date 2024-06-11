@@ -20,24 +20,27 @@ namespace NoteHighlightAddin
         {
             InitializeComponent();
             
-            fontDialog1.Font = new Font(NoteHighlightForm.Properties.Settings.Default.Font, NoteHighlightForm.Properties.Settings.Default.FontSize);
+            fontDialog1.Font = new Font(NoteHighlightAddin.Properties.Settings.Default.Font, NoteHighlightAddin.Properties.Settings.Default.FontSize);
             btnFont.Text = "Font:" + fontDialog1.Font.Name + ", Size:" + fontDialog1.Font.Size;
             btnFont.Font = fontDialog1.Font;
-            cbShowTableBorder.Checked = NoteHighlightForm.Properties.Settings.Default.ShowTableBorder;
+            cbShowTableBorder.Checked = NoteHighlightAddin.Properties.Settings.Default.ShowTableBorder;
+            chkOneRowPerLine.Checked = NoteHighlightAddin.Properties.Settings.Default.OneRowPerLine;
         }
 
         private void BtnFont_Click(object sender, EventArgs e)
         {
-            fontDialog1.Font = new Font(NoteHighlightForm.Properties.Settings.Default.Font, NoteHighlightForm.Properties.Settings.Default.FontSize);
+            fontDialog1.Font = new Font(NoteHighlightAddin.Properties.Settings.Default.Font, NoteHighlightAddin.Properties.Settings.Default.FontSize);
             if (fontDialog1.ShowDialog() == DialogResult.OK)
             {
-                btnFont.Text = "Font:"+fontDialog1.Font.Name + ", Size:" + fontDialog1.Font.Size;
+                int roundedSize = (int)Math.Round(fontDialog1.Font.Size);
+                // Display rounded (rather than exact) size on the button to avoid confusion.
+                btnFont.Text = "Font:"+fontDialog1.Font.Name + ", Size:" + roundedSize.ToString();
                 btnFont.Font = fontDialog1.Font;
 
-                NoteHighlightForm.Properties.Settings.Default.Font = fontDialog1.Font.Name;
-                NoteHighlightForm.Properties.Settings.Default.FontSize = (int)Math.Round(fontDialog1.Font.Size);
+                NoteHighlightAddin.Properties.Settings.Default.Font = fontDialog1.Font.Name;
+                NoteHighlightAddin.Properties.Settings.Default.FontSize = roundedSize;
 
-                NoteHighlightForm.Properties.Settings.Default.Save();
+                NoteHighlightAddin.Properties.Settings.Default.Save();
             }
 
             
@@ -45,9 +48,9 @@ namespace NoteHighlightAddin
 
         private void ChShowTableBorder_CheckedChanged(object sender, EventArgs e)
         {
-            NoteHighlightForm.Properties.Settings.Default.ShowTableBorder = cbShowTableBorder.Checked;
+            NoteHighlightAddin.Properties.Settings.Default.ShowTableBorder = cbShowTableBorder.Checked;
 
-            NoteHighlightForm.Properties.Settings.Default.Save();
+            NoteHighlightAddin.Properties.Settings.Default.Save();
         }
 
         private void SettingsForm_Shown(object sender, EventArgs e)
@@ -57,6 +60,12 @@ namespace NoteHighlightAddin
             this.WindowState = FormWindowState.Normal;
 
             SetForegroundWindow(this.Handle);
+        }
+
+        private void chkOneRowPerLine_CheckedChanged(object sender, EventArgs e)
+        {
+            NoteHighlightAddin.Properties.Settings.Default.OneRowPerLine = chkOneRowPerLine.Checked;
+            NoteHighlightAddin.Properties.Settings.Default.Save();
         }
     }
 }

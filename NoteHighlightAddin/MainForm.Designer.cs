@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            NoteHighlightForm.Properties.Settings settings1 = new NoteHighlightForm.Properties.Settings();
+            NoteHighlightAddin.Properties.Settings settings1 = new NoteHighlightAddin.Properties.Settings();
             this.btnCodeHighLight = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cbx_style = new System.Windows.Forms.ComboBox();

@@ -31,6 +31,7 @@
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.btnFont = new System.Windows.Forms.Button();
             this.cbShowTableBorder = new System.Windows.Forms.CheckBox();
+            this.chkOneRowPerLine = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // fontDialog1
@@ -53,7 +54,6 @@
             // 
             // cbShowTableBorder
             // 
-            this.cbShowTableBorder.AutoSize = true;
             this.cbShowTableBorder.Location = new System.Drawing.Point(34, 70);
             this.cbShowTableBorder.Name = "cbShowTableBorder";
             this.cbShowTableBorder.Size = new System.Drawing.Size(117, 17);
@@ -62,18 +62,29 @@
             this.cbShowTableBorder.UseVisualStyleBackColor = true;
             this.cbShowTableBorder.CheckedChanged += new System.EventHandler(this.ChShowTableBorder_CheckedChanged);
             // 
+            // chkOneRowPerLine
+            // 
+            this.chkOneRowPerLine.Location = new System.Drawing.Point(34, 92);
+            this.chkOneRowPerLine.Name = "chkOneRowPerLine";
+            this.chkOneRowPerLine.Size = new System.Drawing.Size(117, 17);
+            this.chkOneRowPerLine.TabIndex = 3;
+            this.chkOneRowPerLine.Text = "One Row Per Line";
+            this.chkOneRowPerLine.UseVisualStyleBackColor = true;
+            this.chkOneRowPerLine.Visible = false;
+            this.chkOneRowPerLine.CheckedChanged += new System.EventHandler(this.chkOneRowPerLine_CheckedChanged);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(408, 355);
+            this.Controls.Add(this.chkOneRowPerLine);
             this.Controls.Add(this.cbShowTableBorder);
             this.Controls.Add(this.btnFont);
             this.Name = "SettingsForm";
             this.Text = "SettingsForm";
             this.Shown += new System.EventHandler(this.SettingsForm_Shown);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -82,5 +93,6 @@
         private System.Windows.Forms.FontDialog fontDialog1;
         private System.Windows.Forms.Button btnFont;
         private System.Windows.Forms.CheckBox cbShowTableBorder;
+        private System.Windows.Forms.CheckBox chkOneRowPerLine;
     }
 }

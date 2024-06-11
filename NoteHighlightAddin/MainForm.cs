@@ -1,7 +1,6 @@
 ﻿using GenerateHighlightContent;
 using Helper;
 using ICSharpCode.TextEditor.Document;
-using NoteHighLightForm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -111,10 +110,10 @@ namespace NoteHighlightAddin
         {
             this.txtCode.Document.HighlightingStrategy = HighlightingStrategyFactory.CreateHighlightingStrategy(CodeTypeTransform(_codeType));
             this.txtCode.Encoding = Encoding.UTF8;
-            this.cbx_style.SelectedIndex = NoteHighlightForm.Properties.Settings.Default.HighLightStyle;
-            this.btnBackground.BackColor = NoteHighlightForm.Properties.Settings.Default.BackgroundColor;
-            this.cbx_Clipboard.Checked = NoteHighlightForm.Properties.Settings.Default.SaveOnClipboard;
-            this.cbx_lineNumber.Checked = NoteHighlightForm.Properties.Settings.Default.ShowLineNumber;
+            this.cbx_style.SelectedIndex = NoteHighlightAddin.Properties.Settings.Default.HighLightStyle;
+            this.btnBackground.BackColor = NoteHighlightAddin.Properties.Settings.Default.BackgroundColor;
+            this.cbx_Clipboard.Checked = NoteHighlightAddin.Properties.Settings.Default.SaveOnClipboard;
+            this.cbx_lineNumber.Checked = NoteHighlightAddin.Properties.Settings.Default.ShowLineNumber;
             //this.TopMost = true;
             //this.TopMost = false;
         }
@@ -149,8 +148,8 @@ namespace NoteHighlightAddin
                 HighLightStyle = CodeStyle,
                 ShowLineNumber = IsShowLineNumber,
                 HighlightColor = BackgroundColor,
-                Font = NoteHighlightForm.Properties.Settings.Default.Font,
-                FontSize = NoteHighlightForm.Properties.Settings.Default.FontSize
+                Font = NoteHighlightAddin.Properties.Settings.Default.Font,
+                FontSize = NoteHighlightAddin.Properties.Settings.Default.FontSize
 
             };
 
@@ -294,7 +293,7 @@ namespace NoteHighlightAddin
         /// </summary>
         private void SaveSetting()
         {
-            var defaultSettings = NoteHighlightForm.Properties.Settings.Default;
+            var defaultSettings = NoteHighlightAddin.Properties.Settings.Default;
             defaultSettings.ShowLineNumber = this.cbx_lineNumber.Checked;
             defaultSettings.SaveOnClipboard = this.cbx_Clipboard.Checked;
             defaultSettings.HighLightStyle = this.cbx_style.SelectedIndex;

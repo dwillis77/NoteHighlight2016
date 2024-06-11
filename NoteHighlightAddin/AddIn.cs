@@ -18,7 +18,6 @@ using Application = Microsoft.Office.Interop.OneNote.Application;  // Conflicts 
 using System.Reflection;
 using System.Drawing;
 using Microsoft.Office.Interop.OneNote;
-using NoteHighLightForm;
 using System.Text;
 using System.Linq;
 using Helper;
@@ -142,29 +141,29 @@ namespace NoteHighlightAddin
 
         public bool cbQuickStyle_GetPressed(IRibbonControl control)
         {
-            this.QuickStyle = NoteHighlightForm.Properties.Settings.Default.QuickStyle;
+            this.QuickStyle = NoteHighlightAddin.Properties.Settings.Default.QuickStyle;
             return this.QuickStyle;
         }
 
         public void cbQuickStyle_OnAction(IRibbonControl control, bool isPressed)
         {
             this.QuickStyle = isPressed;
-            NoteHighlightForm.Properties.Settings.Default.QuickStyle = this.QuickStyle;
-            NoteHighlightForm.Properties.Settings.Default.Save();
+            NoteHighlightAddin.Properties.Settings.Default.QuickStyle = this.QuickStyle;
+            NoteHighlightAddin.Properties.Settings.Default.Save();
         }
 
 
         public bool cbDarkMode_GetPressed(IRibbonControl control)
         {
-            this.DarkMode = NoteHighlightForm.Properties.Settings.Default.DarkMode;
+            this.DarkMode = NoteHighlightAddin.Properties.Settings.Default.DarkMode;
             return this.DarkMode;
         }
 
         public void cbDarkMOde_OnAction(IRibbonControl control, bool isPressed)
         {
             this.DarkMode = isPressed;
-            NoteHighlightForm.Properties.Settings.Default.DarkMode = this.DarkMode;
-            NoteHighlightForm.Properties.Settings.Default.Save();
+            NoteHighlightAddin.Properties.Settings.Default.DarkMode = this.DarkMode;
+            NoteHighlightAddin.Properties.Settings.Default.Save();
         }
 
         //public async Task AddInButtonClicked(IRibbonControl control)
@@ -428,18 +427,21 @@ namespace NoteHighlightAddin
                 var table = node.Descendants(ns + "Table").Where(n => n.Attribute("selected") != null && (n.Attribute("selected").Value == "all" || n.Attribute("selected").Value == "partial")).FirstOrDefault();
 
                 System.Collections.Generic.IEnumerable<XElement> attrPos;
+                System.Collections.Generic.List<XElement> elementList = new System.Collections.Generic.List<XElement>();
                 if (table == null)
                 {
                     attrPos = node.Descendants(ns + "T").Where(n => n.Attribute("selected") != null && n.Attribute("selected").Value == "all");
+                    elementList = attrPos.ToList();
                 }
                 else
                 {
                     attrPos = table.Descendants(ns + "Cell").LastOrDefault().Descendants(ns + "T").Where(n => n.Attribute("selected") != null && n.Attribute("selected").Value == "all");
+                    elementList = attrPos.ToList();
                     selectedTextFormated = true;
                 }
                 int tabCount = 0;
                 int initTabCount = -1;
-                foreach (var line in attrPos)
+                foreach (var line in elementList)
                 {
                     var htmlDocument = new HtmlAgilityPack.HtmlDocument();
                     htmlDocument.LoadHtml(line.Value);
@@ -501,7 +503,9 @@ namespace NoteHighlightAddin
                 update = true;
 
                 //Change outline width
-                outline.Element(ns + "Size").Attribute("width").Value = "1600";
+                // Removed for now - not sure why we were doing this. Unnecessarily widens the outline and messes up any custom size we had set previously.
+                // Note custom widths only take effect if the IsSetByUser attribute is set true.
+                //outline.Element(ns + "Size").Attribute("width").Value = "1600";
 
                 if (selectedTextFormated)
                 {
@@ -577,7 +581,7 @@ namespace NoteHighlightAddin
             XElement children = new XElement(ns + "OEChildren");
 
             XElement table = new XElement(ns + "Table");
-            table.Add(new XAttribute("bordersVisible", NoteHighlightForm.Properties.Settings.Default.ShowTableBorder));
+            table.Add(new XAttribute("bordersVisible", NoteHighlightAddin.Properties.Settings.Default.ShowTableBorder));
 
             XElement columns = new XElement(ns + "Columns");
             XElement column1 = new XElement(ns + "Column");
@@ -605,16 +609,16 @@ namespace NoteHighlightAddin
             Color color = parameters.HighlightColor;
             string colorString = color.A == 0 ? "none" : string.Format("#{0:X2}{1:X2}{2:X2}", color.R, color.G, color.B);
 
+            string defaultStyle = "";
+
+            var arrayLine = htmlContent.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+
             XElement row = new XElement(ns + "Row");
             XElement cell1 = new XElement(ns + "Cell");
             cell1.Add(new XAttribute("shadingColor", colorString));
             XElement cell2 = new XElement(ns + "Cell");
             cell2.Add(new XAttribute("shadingColor", colorString));
 
-
-            string defaultStyle = "";
-
-            var arrayLine = htmlContent.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
             foreach (var it in arrayLine)
             {
                 string item = it;
@@ -629,7 +633,7 @@ namespace NoteHighlightAddin
                     {
                         //Remove background-color element so that text would render with correct contrast in dark mode
                         int bcIndex = defaultStyle.IndexOf("background-color");
-                        defaultStyle = defaultStyle.Remove(bcIndex, defaultStyle.IndexOf(';', bcIndex) - bcIndex +1);
+                        defaultStyle = defaultStyle.Remove(bcIndex, defaultStyle.IndexOf(';', bcIndex) - bcIndex + 1);
                     }
 
                     item = item.Substring(item.IndexOf(">") + 1);
@@ -678,7 +682,7 @@ namespace NoteHighlightAddin
                     }
 
                     cell1.Add(new XElement(ns + "OEChildren",
-                               oeElement ));
+                                oeElement));
                 }
                 else
                 {
@@ -706,6 +710,26 @@ namespace NoteHighlightAddin
 
             children.Add(new XElement(ns + "OE",
                                 table));
+
+            // Bug fix for font not being applied to empty lines that are in the middle of the selected code block. This explicitly applies
+            // the "style" attribute with the configured font and size to every <OE> element within the table we create to ensure the proper
+            // font and size is applied to every line. This should also fix any line number alignment issues (e.g. issue #82) as long as the
+            // code lines aren't wrapped. For lines that are wrapped, the proper fix would be to use one table row per line so each line number
+            // has its own row - then if the code wraps, the line number will adjust accordingly automatically (this functionality is built-in
+            // to OneNote). However when all line numbers and code are in a single row, this will not work.
+            foreach (var tblRow in children.Descendants(ns + "Table").FirstOrDefault().Descendants(ns + "Row"))
+            {
+                foreach (var tblCell in tblRow.Descendants(ns + "Cell"))
+                {
+                    foreach (var tblOEElem in tblCell.Descendants(ns + "OE"))
+                    {
+                        string font = parameters.Font;
+                        int fontSize = parameters.FontSize;
+                        tblOEElem.Add(new XAttribute("style", String.Format("font-family:'{0}';font-size:{1}.0pt", font, fontSize.ToString())));
+                    }
+                }
+            }
+
             return children;
         }
 

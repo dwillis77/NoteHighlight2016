@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NoteHighlightForm.Properties {
+namespace NoteHighlightAddin.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -58,94 +58,88 @@ namespace NoteHighlightForm.Properties {
                 this["HighLightStyle"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("White")]
-        public global::System.Drawing.Color BackgroundColor
-        {
-            get
-            {
+        public global::System.Drawing.Color BackgroundColor {
+            get {
                 return ((global::System.Drawing.Color)(this["BackgroundColor"]));
             }
-            set
-            {
+            set {
                 this["BackgroundColor"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool QuickStyle
-        {
-            get
-            {
-                return (bool)(this["QuickStyle"]);
+        public bool QuickStyle {
+            get {
+                return ((bool)(this["QuickStyle"]));
             }
-            set
-            {
+            set {
                 this["QuickStyle"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool DarkMode
-        {
-            get
-            {
-                return (bool)(this["DarkMode"]);
+        public bool DarkMode {
+            get {
+                return ((bool)(this["DarkMode"]));
             }
-            set
-            {
+            set {
                 this["DarkMode"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Courier New")]
-        public string Font
-        {
-            get
-            {
-                return (string)(this["Font"]);
+        public string Font {
+            get {
+                return ((string)(this["Font"]));
             }
-            set
-            {
+            set {
                 this["Font"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int FontSize
-        {
-            get
-            {
-                return (int)(this["FontSize"]);
+        public int FontSize {
+            get {
+                return ((int)(this["FontSize"]));
             }
-            set
-            {
+            set {
                 this["FontSize"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ShowTableBorder
-        {
-            get
-            {
-                return (bool)(this["ShowTableBorder"]);
+        public bool ShowTableBorder {
+            get {
+                return ((bool)(this["ShowTableBorder"]));
             }
-            set
-            {
+            set {
                 this["ShowTableBorder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OneRowPerLine {
+            get {
+                return ((bool)(this["OneRowPerLine"]));
+            }
+            set {
+                this["OneRowPerLine"] = value;
             }
         }
     }
