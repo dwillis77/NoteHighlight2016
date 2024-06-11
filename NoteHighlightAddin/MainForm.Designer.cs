@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             NoteHighlightAddin.Properties.Settings settings1 = new NoteHighlightAddin.Properties.Settings();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnCodeHighLight = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cbx_style = new System.Windows.Forms.ComboBox();
@@ -41,7 +43,7 @@
             this.btnBackground = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pickColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transparentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
@@ -83,11 +85,16 @@
             // 
             this.cbx_Clipboard.AutoSize = true;
             settings1.BackgroundColor = System.Drawing.Color.White;
+            settings1.DarkMode = true;
+            settings1.Font = "Courier New";
+            settings1.FontSize = 10;
             settings1.HighLightStyle = 0;
+            settings1.OneRowPerLine = false;
+            settings1.QuickStyle = false;
             settings1.SaveOnClipboard = false;
             settings1.SettingsKey = "";
             settings1.ShowLineNumber = true;
-            settings1.QuickStyle = false;
+            settings1.ShowTableBorder = false;
             this.cbx_Clipboard.Checked = settings1.SaveOnClipboard;
             this.cbx_Clipboard.DataBindings.Add(new System.Windows.Forms.Binding("Checked", settings1, "SaveOnClipboard", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cbx_Clipboard.Location = new System.Drawing.Point(271, 20);
@@ -145,7 +152,7 @@
             // btnBackground
             // 
             this.btnBackground.Location = new System.Drawing.Point(9, 2);
-            this.btnBackground.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnBackground.Margin = new System.Windows.Forms.Padding(2);
             this.btnBackground.Name = "btnBackground";
             this.btnBackground.Size = new System.Drawing.Size(79, 41);
             this.btnBackground.TabIndex = 1;
@@ -168,19 +175,19 @@
             this.pickColorToolStripMenuItem,
             this.transparentToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(136, 48);
             // 
             // pickColorToolStripMenuItem
             // 
             this.pickColorToolStripMenuItem.Name = "pickColorToolStripMenuItem";
-            this.pickColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pickColorToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.pickColorToolStripMenuItem.Text = "Pick color";
             this.pickColorToolStripMenuItem.Click += new System.EventHandler(this.PickColorToolStripMenuItem_Click);
             // 
             // transparentToolStripMenuItem
             // 
             this.transparentToolStripMenuItem.Name = "transparentToolStripMenuItem";
-            this.transparentToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.transparentToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.transparentToolStripMenuItem.Text = "Transparent";
             this.transparentToolStripMenuItem.Click += new System.EventHandler(this.TransparentToolStripMenuItem_Click);
             // 
@@ -193,9 +200,10 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "NoteHighLight";
+            this.Text = "NoteHighlight";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CodeForm_FormClosed);
             this.Load += new System.EventHandler(this.CodeForm_Load);

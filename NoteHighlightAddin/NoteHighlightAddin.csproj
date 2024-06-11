@@ -150,7 +150,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="icon.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Lib\ICSharpCode.TextEditor.dll" />
     <Content Include="Resources\CPP.png" />
@@ -1136,7 +1136,7 @@
     </None>
     <None Include="ribbon.xml">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

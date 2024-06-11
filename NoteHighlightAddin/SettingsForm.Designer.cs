@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.btnFont = new System.Windows.Forms.Button();
             this.cbShowTableBorder = new System.Windows.Forms.CheckBox();
@@ -56,7 +57,7 @@
             // 
             this.cbShowTableBorder.Location = new System.Drawing.Point(34, 70);
             this.cbShowTableBorder.Name = "cbShowTableBorder";
-            this.cbShowTableBorder.Size = new System.Drawing.Size(117, 17);
+            this.cbShowTableBorder.Size = new System.Drawing.Size(127, 17);
             this.cbShowTableBorder.TabIndex = 2;
             this.cbShowTableBorder.Text = "Show Table Border";
             this.cbShowTableBorder.UseVisualStyleBackColor = true;
@@ -66,7 +67,7 @@
             // 
             this.chkOneRowPerLine.Location = new System.Drawing.Point(34, 92);
             this.chkOneRowPerLine.Name = "chkOneRowPerLine";
-            this.chkOneRowPerLine.Size = new System.Drawing.Size(117, 17);
+            this.chkOneRowPerLine.Size = new System.Drawing.Size(127, 17);
             this.chkOneRowPerLine.TabIndex = 3;
             this.chkOneRowPerLine.Text = "One Row Per Line";
             this.chkOneRowPerLine.UseVisualStyleBackColor = true;
@@ -81,8 +82,9 @@
             this.Controls.Add(this.chkOneRowPerLine);
             this.Controls.Add(this.cbShowTableBorder);
             this.Controls.Add(this.btnFont);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsForm";
-            this.Text = "SettingsForm";
+            this.Text = "Settings";
             this.Shown += new System.EventHandler(this.SettingsForm_Shown);
             this.ResumeLayout(false);
 
